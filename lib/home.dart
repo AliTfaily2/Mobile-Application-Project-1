@@ -12,46 +12,58 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MyQuiz', style: TextStyle(fontSize: 27),),
+        title: const Text('MyQuiz', style: TextStyle(fontSize: 27, color: Colors.lightGreenAccent,),),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.black54,
       ),
       body: Center(
         child: Column(
           children: [
             const SizedBox(height: 80,),
-            const Text('Choose one of the four operations:', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),),
-            const SizedBox(height: 20,),
+            const Row(
+              children: [
+                SizedBox(width: 37,),
+                Text('Choose an', style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold, color: Colors.black, backgroundColor: Colors.lightGreenAccent),),
+                Text(' Operation:', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold , color: Colors.lightGreenAccent, backgroundColor: Colors.black),),
+              ],
+            ),
+            const SizedBox(height: 100,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                SizedBox(height: 125,child:
                 ElevatedButton(onPressed: (){
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context)=> MyQuiz(operation: '+'),
                       ),
                   );
-                }, child: Image.asset('assets/addition.png', width: 100, height: 100,),),
-                ElevatedButton(onPressed: (){
+                },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/addition.png', width: 125, height: 125,),)),
+                SizedBox(height: 125
+                    ,child: ElevatedButton(onPressed: (){
                   Navigator.push(context,
                   MaterialPageRoute(builder: (context) => MyQuiz(operation: '-',)));
-                }, child: Image.asset('assets/subtraction.png', width: 100, height: 100,))
+                },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/subtraction.png', width: 125, height: 125,))
+                )
               ],
             ),
             const SizedBox(height: 30,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                SizedBox(height: 125,child:
                 ElevatedButton(onPressed: (){
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (context)=> MyQuiz(operation: 'x'),
+                    MaterialPageRoute(builder: (context)=> MyQuiz(operation: '/'),
                     ),
                   );
-                }, child: Image.asset('assets/multiplication.png', width: 100, height: 100,),
-                ),
+                },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/division.png', width: 125, height: 125,),
+                )),
+                SizedBox(height: 125,child:
                 ElevatedButton(onPressed: (){
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyQuiz(operation: '/',)));
-                }, child: Image.asset('assets/division.png', width: 100, height: 100,))
+                      MaterialPageRoute(builder: (context) => MyQuiz(operation: 'x',)));
+                },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/multiplication.png', width: 125, height: 125,))
+                ),
               ],
             ),
           ],
