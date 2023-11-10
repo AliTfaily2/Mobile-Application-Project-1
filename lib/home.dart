@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'quiz.dart';
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -21,15 +21,37 @@ class _HomeState extends State<Home> {
           children: [
             const SizedBox(height: 80,),
             const Text('Choose one of the four operations:', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),),
+            const SizedBox(height: 20,),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(onPressed: (){
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context)=> MyQuiz(operation: '+'),
                       ),
                   );
-                }, child: child)
+                }, child: Image.asset('assets/addition.png', width: 100, height: 100,),),
+                ElevatedButton(onPressed: (){
+                  Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyQuiz(operation: '-',)));
+                }, child: Image.asset('assets/subtraction.png', width: 100, height: 100,))
+              ],
+            ),
+            const SizedBox(height: 30,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(onPressed: (){
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context)=> MyQuiz(operation: 'x'),
+                    ),
+                  );
+                }, child: Image.asset('assets/multiplication.png', width: 100, height: 100,),
+                ),
+                ElevatedButton(onPressed: (){
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyQuiz(operation: '/',)));
+                }, child: Image.asset('assets/division.png', width: 100, height: 100,))
               ],
             ),
           ],
