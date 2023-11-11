@@ -11,61 +11,76 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('MyQuiz', style: TextStyle(fontSize: 27, color: Colors.lightGreenAccent,),),
-        centerTitle: true,
-        backgroundColor: Colors.black54,
-      ),
       body: Center(
         child: Column(
           children: [
             const SizedBox(height: 80,),
-            const Row(
-              children: [
-                SizedBox(width: 37,),
-                Text('Choose an', style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold, color: Colors.black, backgroundColor: Colors.lightGreenAccent),),
-                Text(' Operation:', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold , color: Colors.lightGreenAccent, backgroundColor: Colors.black),),
-              ],
-            ),
-            const SizedBox(height: 100,),
+            Image.asset('assets/logo.png'),
+            const SizedBox(height: 30,),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(height: 125,child:
+                SizedBox(height: 100,child:
                 ElevatedButton(onPressed: (){
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context)=> MyQuiz(operation: '+'),
-                      ),
+                    MaterialPageRoute(builder: (context)=> MyQuiz(operation: '+'),
+                    ),
                   );
-                },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/addition.png', width: 125, height: 125,),)),
-                SizedBox(height: 125
+                },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/addition.png', width: 125, height: 125,),)
+                ),
+                const Text('ADD', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
+              ],
+            ),
+            SizedBox(height: 20,),
+            Row(
+              children: [
+                const SizedBox(width: 20,),
+                const Text('SUBTRACT', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),),
+                SizedBox(height: 100
                     ,child: ElevatedButton(onPressed: (){
-                  Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MyQuiz(operation: '-',)));
-                },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/subtraction.png', width: 125, height: 125,))
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MyQuiz(operation: '-',)));
+                    },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/subtraction.png', width: 125, height: 125,))
                 )
               ],
             ),
-            const SizedBox(height: 30,),
+            SizedBox(height: 20,),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(height: 125,child:
+                SizedBox(height: 100,child:
                 ElevatedButton(onPressed: (){
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (context)=> MyQuiz(operation: '/'),
+                    MaterialPageRoute(builder: (context)=> MyQuiz(operation: 'x'),
                     ),
                   );
-                },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/division.png', width: 125, height: 125,),
-                )),
-                SizedBox(height: 125,child:
-                ElevatedButton(onPressed: (){
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyQuiz(operation: 'x',)));
-                },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/multiplication.png', width: 125, height: 125,))
+                },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/multiplication.png', width: 125, height: 125,),)
                 ),
+                const Text('MULTIPLY', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
               ],
             ),
+            SizedBox(height: 20,),
+            Row(
+              children: [
+                const SizedBox(width: 30,),
+                const Text('DIVIDE', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),),
+                const SizedBox(width:57),
+                SizedBox(height: 100
+                    ,child: ElevatedButton(onPressed: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MyQuiz(operation: '/',)));
+                    },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/division.png', width: 125, height: 125,))
+                )
+              ],
+            ),
+            SizedBox(height: 70,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Version 1.0.6 ', style: TextStyle(color: Colors.black54),),
+                const Text('\u00a92023 AliTfaily. All rights reserved', style: TextStyle(color: Colors.black54),)
+              ],
+            ),
+
+
           ],
         ),
       ),
