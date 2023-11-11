@@ -67,10 +67,79 @@ class _MyQuizState extends State<MyQuiz> {
         correctAnswer = num1 ~/ num2;
         break;
     }
+    options = [correctAnswer];
+    for(int i=0; i < 3; i++){
+      int wrongAnswer = random.nextInt(20);
+      if(wrongAnswer != correctAnswer && !options.contains(wrongAnswer)){
+        options.add(wrongAnswer);
+      }else{
+        i--;
+      }
+    }
+    options.shuffle();
+    resultText = '';
+    startTimer();
+  }
+  void checkAnswer(int selectedAnswer){
+    if(selectedAnswer == correctAnswer){
+      setState(() {
+        resultText = 'CORRECT!';
+      });
+    }else{
+      setState(() {
+        resultText = 'INCORRECT!';
+        lifeCounter--;
+      });
+    }
+    generateQuestion();
+  }
+  void showRestartDialog(){
+    showDialog(context: context, builder: (BuildContext context){
+      return AlertDialog(
+        title: const Text('Game Over'),
+        content: const Text('You ran out of Lives. Do you want to play again?'),
+        actions: [
+          ElevatedButton(onPressed: (){
+            setState(() {
+              lifeCounter = 3;
+              generateQuestion();
+            });
+            Navigator.pop(context);
+          }, child: const Text('Restart'))
+        ],
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('MyQuiz - ${widget.operation}'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Text('$num1 ${widget.operation} $num2 =  ', style: const TextStyle(fontSize: 24),),
+            const SizedBox(height: 20,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: options.map((option){
+                return ElevatedButton(onPressed: (){
+                  timer.cancel();
+                  checkAnswer(option);
+                }, child: Text(option.toString()));
+              }).toList(),
+            ),
+            const SizedBox(height: 20,),
+            Text('Time left: $countdown seconds', style: const TextStyle(fontSize: 16),),
+            const SizedBox(height: 20,),
+            Text('Lives: $lifeCounter', style: TextStyle(fontSize: 16),),
+            Text(resultText, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)
+          ],
+        ),
+      ),
+    );
   }
 }
