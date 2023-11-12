@@ -18,6 +18,7 @@ class _MyQuizState extends State<MyQuiz> {
   int lifeCounter = 3;
   int countdown = 10;
   late Timer timer;
+  String header = '';
   int x = 0;
   int y = 39;
 
@@ -59,22 +60,26 @@ class _MyQuizState extends State<MyQuiz> {
         num1 = random.nextInt(19) + 1.0;
         num2 = random.nextInt(19) + 1.0;
         correctAnswer = num1 + num2;
+        header = 'Addition';
         break;
       case '-':
         num1 = random.nextInt(19) + 1.0;
         num2 = random.nextInt(19) + 1.0;
         correctAnswer = num1 - num2;
+        header = 'Subtraction';
         break;
       case 'x':
         num1 = random.nextInt(9) +1.0;
         num2 = random.nextInt(9) +1.0;
         y = 100;
         correctAnswer = num1 * num2;
+        header = 'Multiplication';
       case '/':
         num1 = random.nextInt(9) + 1.0;
         num2 = random.nextInt(9) + 1.0;
         correctAnswer = num1 / num2;
         x = 1;
+        header = 'Division';
         break;
     }
     options = [correctAnswer];
@@ -125,7 +130,7 @@ class _MyQuizState extends State<MyQuiz> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MyQuiz - ${widget.operation}'),
+        title: Text('MyQuiz - $header'),
         centerTitle: true,
       ),
       body: Center(
@@ -134,13 +139,25 @@ class _MyQuizState extends State<MyQuiz> {
             Text('$num1 ${widget.operation} $num2 =  ', style: const TextStyle(fontSize: 24),),
             const SizedBox(height: 20,),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: options.map((option){
-                return ElevatedButton(onPressed: (){
+              children: [
+                ElevatedButton(onPressed:(){
+                    timer.cancel();
+                    checkAnswer(options[0]);
+                  }, child: Text(options[0].toStringAsFixed(x)),),
+                ElevatedButton(onPressed:(){
                   timer.cancel();
-                  checkAnswer(option);
-                }, child: Text(option.toStringAsFixed(x)));
-              }).toList(),
+                  checkAnswer(options[1]);
+                }, child: Text(options[1].toStringAsFixed(x))),
+                ElevatedButton(onPressed:(){
+                  timer.cancel();
+                  checkAnswer(options[2]);
+                }, child: Text(options[2].toStringAsFixed(x))),
+                ElevatedButton(onPressed:(){
+                  timer.cancel();
+                  checkAnswer(options[3]);
+                }, child: Text(options[3].toStringAsFixed(x)))
+
+              ],
             ),
             const SizedBox(height: 20,),
             Text('Time left: $countdown seconds', style: const TextStyle(fontSize: 16),),
