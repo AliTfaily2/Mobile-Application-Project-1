@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
                 const Text('ADD', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Row(
               children: [
                 const SizedBox(width: 20,),
@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
                 )
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Row(
               children: [
                 SizedBox(height: 100,child:
@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
                 const Text('MULTIPLY', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Row(
               children: [
                 const SizedBox(width: 30,),
@@ -71,12 +71,12 @@ class _HomeState extends State<Home> {
                 )
               ],
             ),
-            SizedBox(height: 70,),
-            Row(
+            const SizedBox(height: 70,),
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Version 1.0.6 ', style: TextStyle(color: Colors.black54),),
-                const Text('\u00a92023 AliTfaily. All rights reserved', style: TextStyle(color: Colors.black54),)
+                Text('Version 1.0.6 ', style: TextStyle(color: Colors.black54),),
+                Text('\u00a92023 AliTfaily. All rights reserved', style: TextStyle(color: Colors.black54),)
               ],
             ),
 

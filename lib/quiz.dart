@@ -12,12 +12,14 @@ class MyQuiz extends StatefulWidget {
 
 class _MyQuizState extends State<MyQuiz> {
   Random random = Random();
-  int num1 = 0, num2 = 0, correctAnswer = 0;
-  List<int> options = [];
+  double num1 = 0, num2 = 0, correctAnswer = 0;
+  List<double> options = [];
   String resultText = '';
   int lifeCounter = 3;
   int countdown = 10;
   late Timer timer;
+  int x = 0;
+  int y = 39;
 
   @override
   void initState(){
@@ -50,26 +52,34 @@ class _MyQuizState extends State<MyQuiz> {
       showRestartDialog();
       return;
     }
-    num1 = random.nextInt(10);
-    num2 = random.nextInt(10);
+
 
     switch(widget.operation){
       case '+':
+        num1 = random.nextInt(19) + 1.0;
+        num2 = random.nextInt(19) + 1.0;
         correctAnswer = num1 + num2;
         break;
       case '-':
+        num1 = random.nextInt(19) + 1.0;
+        num2 = random.nextInt(19) + 1.0;
         correctAnswer = num1 - num2;
         break;
       case 'x':
+        num1 = random.nextInt(9) +1.0;
+        num2 = random.nextInt(9) +1.0;
+        y = 100;
         correctAnswer = num1 * num2;
       case '/':
-        num2 = random.nextInt(9)+1;
-        correctAnswer = num1 ~/ num2;
+        num1 = random.nextInt(9) + 1.0;
+        num2 = random.nextInt(9) + 1.0;
+        correctAnswer = num1 / num2;
+        x = 1;
         break;
     }
     options = [correctAnswer];
     for(int i=0; i < 3; i++){
-      int wrongAnswer = random.nextInt(20);
+      double wrongAnswer = random.nextInt(y) * 1.0;
       if(wrongAnswer != correctAnswer && !options.contains(wrongAnswer)){
         options.add(wrongAnswer);
       }else{
@@ -80,7 +90,7 @@ class _MyQuizState extends State<MyQuiz> {
     resultText = '';
     startTimer();
   }
-  void checkAnswer(int selectedAnswer){
+  void checkAnswer(double selectedAnswer){
     if(selectedAnswer == correctAnswer){
       setState(() {
         resultText = 'CORRECT!';
@@ -129,7 +139,7 @@ class _MyQuizState extends State<MyQuiz> {
                 return ElevatedButton(onPressed: (){
                   timer.cancel();
                   checkAnswer(option);
-                }, child: Text(option.toString()));
+                }, child: Text(option.toStringAsFixed(x)));
               }).toList(),
             ),
             const SizedBox(height: 20,),
