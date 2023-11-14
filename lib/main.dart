@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
-void main()=> runApp(MyApp());
+void main()=> runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       title: 'CSCI410 Project 1',
       initialRoute: '/',
       routes: {
-        '/': (context) => Home(),
+        '/': (context) => const Home(),
       },
       debugShowCheckedModeBanner: false,
     );

@@ -21,6 +21,7 @@ class _MyQuizState extends State<MyQuiz> {
   String header = '';
   int x = 0;
   int y = 39;
+  int count = 0;
 
   @override
   void initState(){
@@ -29,7 +30,7 @@ class _MyQuizState extends State<MyQuiz> {
     generateQuestion();
   }
   void startTimer(){
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if(countdown > 0){
           countdown--;
@@ -46,9 +47,18 @@ class _MyQuizState extends State<MyQuiz> {
       countdown = 10;
     });
   }
+  void won(){
+    resetTimer();
+    timer.cancel();
+    if(count == 10){
+      showWonDialog();
+      return;
+    }
+  }
   void generateQuestion(){
     resetTimer();
     timer.cancel();
+    won();
     if(lifeCounter == 0){
       showRestartDialog();
       return;
@@ -97,13 +107,14 @@ class _MyQuizState extends State<MyQuiz> {
       }
     }
     options.shuffle();
-    resultText = '';
     startTimer();
+    resultText = '';
   }
   void checkAnswer(double selectedAnswer){
     if(selectedAnswer == correctAnswer){
       setState(() {
         resultText = 'CORRECT!';
+        count++;
       });
     }else{
       setState(() {
@@ -117,15 +128,46 @@ class _MyQuizState extends State<MyQuiz> {
     showDialog(context: context, builder: (BuildContext context){
       return AlertDialog(
         title: const Text('Game Over'),
-        content: const Text('You ran out of Lives. Do you want to play again?'),
+        content: const Text('You lost all your lives. Do you want to play again?'),
         actions: [
           ElevatedButton(onPressed: (){
             setState(() {
               lifeCounter = 3;
+              count = 0;
               generateQuestion();
             });
             Navigator.pop(context);
-          }, child: const Text('Restart'))
+          }, child: const Text('Restart')),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.popUntil(context, ModalRoute.withName('/'));
+            },
+            child: const Text('Go Home'),
+          ),
+        ],
+      );
+    });
+  }
+  void showWonDialog(){
+    showDialog(context: context, builder: (BuildContext context){
+      return AlertDialog(
+        title: const Text('BRAVO!'),
+        content: const Text('You answered 10 questions correctly!!.Do you want to play again?'),
+        actions: [
+          ElevatedButton(onPressed: (){
+            setState(() {
+              lifeCounter = 3;
+              count = 0;
+              generateQuestion();
+            });
+            Navigator.pop(context);
+          }, child: const Text('Restart')),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.popUntil(context, ModalRoute.withName('/'));
+            },
+            child: const Text('Go Home'),
+          ),
         ],
       );
     });
@@ -167,8 +209,8 @@ class _MyQuizState extends State<MyQuiz> {
             const SizedBox(height: 20,),
             Text('Time left: $countdown seconds', style: const TextStyle(fontSize: 16),),
             const SizedBox(height: 20,),
-            Text('Lives: $lifeCounter', style: TextStyle(fontSize: 16),),
-            Text(resultText, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)
+            Text('Lives: $lifeCounter', style: const TextStyle(fontSize: 16),),
+            Text(resultText, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)
           ],
         ),
       ),

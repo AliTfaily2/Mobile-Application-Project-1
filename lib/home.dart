@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 100,child:
                 ElevatedButton(onPressed: (){
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (context)=> MyQuiz(operation: '+'),
+                    MaterialPageRoute(builder: (context)=> const MyQuiz(operation: '+'),
                     ),
                   );
                 },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/addition.png', width: 125, height: 125,),)
@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 100
                     ,child: ElevatedButton(onPressed: (){
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MyQuiz(operation: '-',)));
+                          MaterialPageRoute(builder: (context) => const MyQuiz(operation: '-',)));
                     },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/subtraction.png', width: 125, height: 125,))
                 )
               ],
@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 100,child:
                 ElevatedButton(onPressed: (){
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (context)=> MyQuiz(operation: 'x'),
+                    MaterialPageRoute(builder: (context)=> const MyQuiz(operation: 'x'),
                     ),
                   );
                 },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/multiplication.png', width: 125, height: 125,),)
@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 100
                     ,child: ElevatedButton(onPressed: (){
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MyQuiz(operation: '/',)));
+                          MaterialPageRoute(builder: (context) => const MyQuiz(operation: '/',)));
                     },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/division.png', width: 125, height: 125,))
                 )
               ],
