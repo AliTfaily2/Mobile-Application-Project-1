@@ -84,7 +84,12 @@ class _MyQuizState extends State<MyQuiz> {
     }
     options = [correctAnswer];
     for(int i=0; i < 3; i++){
-      double wrongAnswer = random.nextInt(y) * 1.0;
+      double wrongAnswer = 0;
+      if(widget.operation == '/') {
+        wrongAnswer = random.nextDouble() * 10.0;
+      }else{
+        wrongAnswer = random.nextInt(y) * 1.0;
+      }
       if(wrongAnswer != correctAnswer && !options.contains(wrongAnswer)){
         options.add(wrongAnswer);
       }else{
@@ -136,7 +141,7 @@ class _MyQuizState extends State<MyQuiz> {
       body: Center(
         child: Column(
           children: [
-            Text('$num1 ${widget.operation} $num2 =  ', style: const TextStyle(fontSize: 24),),
+            Text('${num1.toInt()} ${widget.operation} ${num2.toInt()} =  ', style: const TextStyle(fontSize: 24),),
             const SizedBox(height: 20,),
             Column(
               children: [
