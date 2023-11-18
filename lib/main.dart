@@ -7,13 +7,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'CSCI410 Project 1',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Home(),
-      },
+      home: Home(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
+

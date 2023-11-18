@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'quiz.dart';
+
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -79,8 +81,6 @@ class _HomeState extends State<Home> {
                 Text('\u00a92023 AliTfaily. All rights reserved', style: TextStyle(color: Colors.black54),)
               ],
             ),
-
-
           ],
         ),
       ),

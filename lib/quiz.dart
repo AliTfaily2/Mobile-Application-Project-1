@@ -48,8 +48,7 @@ class _MyQuizState extends State<MyQuiz> {
     });
   }
   void won(){
-    resetTimer();
-    timer.cancel();
+
     if(count == 10){
       showWonDialog();
       return;
@@ -100,7 +99,7 @@ class _MyQuizState extends State<MyQuiz> {
       }else{
         wrongAnswer = random.nextInt(y) * 1.0;
       }
-      if(wrongAnswer != correctAnswer && !options.contains(wrongAnswer)){
+      if(!options.contains(wrongAnswer)){
         options.add(wrongAnswer);
       }else{
         i--;
@@ -136,11 +135,12 @@ class _MyQuizState extends State<MyQuiz> {
               count = 0;
               generateQuestion();
             });
-            Navigator.pop(context);
+            Navigator.of(context).pop();
           }, child: const Text('Restart')),
           ElevatedButton(
-            onPressed: () {
-              Navigator.popUntil(context, ModalRoute.withName('/'));
+            onPressed: (){
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
             },
             child: const Text('Go Home'),
           ),
@@ -151,7 +151,7 @@ class _MyQuizState extends State<MyQuiz> {
   void showWonDialog(){
     showDialog(context: context, builder: (BuildContext context){
       return AlertDialog(
-        title: const Text('BRAVO!'),
+        title: const Text('Congrats!'),
         content: const Text('You answered 10 questions correctly!!.Do you want to play again?'),
         actions: [
           ElevatedButton(onPressed: (){
@@ -160,11 +160,12 @@ class _MyQuizState extends State<MyQuiz> {
               count = 0;
               generateQuestion();
             });
-            Navigator.pop(context);
+            Navigator.of(context).pop();
           }, child: const Text('Restart')),
           ElevatedButton(
             onPressed: () {
-              Navigator.popUntil(context, ModalRoute.withName('/'));
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
             },
             child: const Text('Go Home'),
           ),
@@ -203,7 +204,6 @@ class _MyQuizState extends State<MyQuiz> {
                   timer.cancel();
                   checkAnswer(options[3]);
                 }, child: Text(options[3].toStringAsFixed(x)))
-
               ],
             ),
             const SizedBox(height: 20,),
