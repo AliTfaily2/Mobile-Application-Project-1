@@ -14,14 +14,15 @@ class _MyQuizState extends State<MyQuiz> {
   Random random = Random();
   double num1 = 0, num2 = 0, correctAnswer = 0;
   List<double> options = [];
-  String resultText = '';
   int lifeCounter = 3;
   int countdown = 10;
   late Timer timer;
   String header = '';
   int x = 0;
   int y = 39;
+  Color colors = Colors.black;
   int count = 0;
+  String hearts = '❤️❤️❤️';
 
   @override
   void initState(){
@@ -59,6 +60,7 @@ class _MyQuizState extends State<MyQuiz> {
     timer.cancel();
     won();
     if(lifeCounter == 0){
+      hearts= '💔💔💔';
       showRestartDialog();
       return;
     }
@@ -105,19 +107,31 @@ class _MyQuizState extends State<MyQuiz> {
         i--;
       }
     }
+    switch(lifeCounter){
+      case 2:
+        hearts = '❤️❤️💔';
+        break;
+      case 1:
+        hearts = '❤️💔💔';
+        break;
+    }
     options.shuffle();
     startTimer();
-    resultText = '';
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {
+        colors = Colors.black;
+      });
+    });
   }
   void checkAnswer(double selectedAnswer){
     if(selectedAnswer == correctAnswer){
       setState(() {
-        resultText = 'CORRECT!';
+        colors = Colors.green;
         count++;
       });
     }else{
       setState(() {
-        resultText = 'INCORRECT!';
+        colors = Colors.red;
         lifeCounter--;
       });
     }
@@ -131,6 +145,7 @@ class _MyQuizState extends State<MyQuiz> {
         actions: [
           ElevatedButton(onPressed: (){
             setState(() {
+              hearts = '❤️❤️❤️';
               lifeCounter = 3;
               count = 0;
               generateQuestion();
@@ -157,6 +172,7 @@ class _MyQuizState extends State<MyQuiz> {
           ElevatedButton(onPressed: (){
             setState(() {
               lifeCounter = 3;
+              hearts = '❤️❤️❤️';
               count = 0;
               generateQuestion();
             });
@@ -180,37 +196,92 @@ class _MyQuizState extends State<MyQuiz> {
       appBar: AppBar(
         title: Text('MyQuiz - $header'),
         centerTitle: true,
+        backgroundColor: colors,
       ),
       body: Center(
         child: Column(
           children: [
-            Text('${num1.toInt()} ${widget.operation} ${num2.toInt()} =  ', style: const TextStyle(fontSize: 24),),
-            const SizedBox(height: 20,),
-            Column(
+            const SizedBox(height: 24,),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(onPressed:(){
-                    timer.cancel();
-                    checkAnswer(options[0]);
-                  }, child: Text(options[0].toStringAsFixed(x)),),
-                ElevatedButton(onPressed:(){
-                  timer.cancel();
-                  checkAnswer(options[1]);
-                }, child: Text(options[1].toStringAsFixed(x))),
-                ElevatedButton(onPressed:(){
-                  timer.cancel();
-                  checkAnswer(options[2]);
-                }, child: Text(options[2].toStringAsFixed(x))),
-                ElevatedButton(onPressed:(){
-                  timer.cancel();
-                  checkAnswer(options[3]);
-                }, child: Text(options[3].toStringAsFixed(x)))
-              ],
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 2
+                    ),
+                    color: Colors.lightGreenAccent,
+                    borderRadius: BorderRadius.circular(10.0)
+                  ),
+                  child: Text(hearts, style: const TextStyle(fontSize: 30)),
+                ),
+                Text('${countdown}s left', style: const TextStyle(fontSize: 16),),
+              ]
+            ),
+            const SizedBox(height:30),
+            Container(
+              width: 340,
+              height: 150,
+              decoration: BoxDecoration(
+                gradient: const RadialGradient(
+                  radius: 1.5,
+                  colors: [
+                    Colors.lime,
+                    Colors.green,
+                    Colors.black,
+                  ]
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Center(child: Text('${num1.toInt()} ${widget.operation} ${num2.toInt()}', style: const TextStyle(fontSize: 65,color: Colors.white),),)
             ),
             const SizedBox(height: 20,),
-            Text('Time left: $countdown seconds', style: const TextStyle(fontSize: 16),),
-            const SizedBox(height: 20,),
-            Text('Lives: $lifeCounter', style: const TextStyle(fontSize: 16),),
-            Text(resultText, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(height: 100,width: 120,
+                    child: ElevatedButton(onPressed:(){
+                  timer.cancel();
+                  checkAnswer(options[0]);
+                },
+                  style: ElevatedButton.styleFrom(),
+                  child: Text(options[0].toStringAsFixed(x), style: const TextStyle(fontSize: 56, fontWeight: FontWeight.w300),),
+                    )
+                ),
+                SizedBox(height: 100,width: 120,
+                    child: ElevatedButton(onPressed:(){
+                      timer.cancel();
+                      checkAnswer(options[1]);
+                    },
+                      style: ElevatedButton.styleFrom(),
+                      child: Text(options[1].toStringAsFixed(x), style: const TextStyle(fontSize: 56, fontWeight: FontWeight.w300)),
+                    )
+                ),
+              ],
+            ),
+            const SizedBox(height: 50,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(height: 100,width: 120,
+                    child: ElevatedButton(onPressed:(){
+                      timer.cancel();
+                      checkAnswer(options[2]);
+                    },
+                      style: ElevatedButton.styleFrom(),
+                      child: Text(options[2].toStringAsFixed(x), style: const TextStyle(fontSize: 56, fontWeight: FontWeight.w300)),
+                    )
+                ),
+                SizedBox(height: 100,width: 120,
+                    child: ElevatedButton(onPressed:(){
+                      timer.cancel();
+                      checkAnswer(options[3]);
+                    },
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                      child: Text(options[3].toStringAsFixed(x), style: const TextStyle(fontSize: 56, fontWeight: FontWeight.w300)),
+                    )
+                ),
+              ],
+            ),
           ],
         ),
       ),
