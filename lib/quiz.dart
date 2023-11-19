@@ -38,6 +38,7 @@ class _MyQuizState extends State<MyQuiz> {
         }
         else{
           lifeCounter--;
+          colors = Colors.red;
           generateQuestion();
         }
       });
@@ -48,19 +49,17 @@ class _MyQuizState extends State<MyQuiz> {
       countdown = 10;
     });
   }
-  void won(){
-
-    if(count == 10){
-      showWonDialog();
-      return;
-    }
-  }
   void generateQuestion(){
     resetTimer();
     timer.cancel();
-    won();
+    if(count == 10){
+      timer.cancel();
+      showWonDialog();
+      return;
+    }
     if(lifeCounter == 0){
       hearts= '💔💔💔';
+      timer.cancel();
       showRestartDialog();
       return;
     }
@@ -85,6 +84,7 @@ class _MyQuizState extends State<MyQuiz> {
         y = 100;
         correctAnswer = num1 * num2;
         header = 'Multiplication';
+        break;
       case '/':
         num1 = random.nextInt(9) + 1.0;
         num2 = random.nextInt(9) + 1.0;
