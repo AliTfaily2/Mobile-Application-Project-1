@@ -202,19 +202,18 @@ class _MyQuizState extends State<MyQuiz> {
         child: Column(
           children: [
             const SizedBox(height: 24,),
+            const Row(
+                children: [
+                  SizedBox(width: 85,),
+                  Text("LIVES", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                  SizedBox(width: 65,),
+                  Text('TIME', style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+                ]
+            ),
             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 2
-                    ),
-                    color: Colors.lightGreenAccent,
-                    borderRadius: BorderRadius.circular(10.0)
-                  ),
-                  child: Text(hearts, style: const TextStyle(fontSize: 30)),
-                ),
-                Text('${countdown}s left', style: const TextStyle(fontSize: 16),),
+                Text(hearts, style: const TextStyle(fontSize: 30)),
+                Text('${countdown}s', style: const TextStyle(fontSize: 30),),
               ]
             ),
             const SizedBox(height:30),
@@ -234,7 +233,7 @@ class _MyQuizState extends State<MyQuiz> {
               ),
               child: Center(child: Text('${num1.toInt()} ${widget.operation} ${num2.toInt()}', style: const TextStyle(fontSize: 65,color: Colors.white),),)
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(height: 60,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -243,7 +242,7 @@ class _MyQuizState extends State<MyQuiz> {
                   timer.cancel();
                   checkAnswer(options[0]);
                 },
-                  style: ElevatedButton.styleFrom(),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
                   child: Text(options[0].toStringAsFixed(x), style: const TextStyle(fontSize: 56, fontWeight: FontWeight.w300),),
                     )
                 ),
@@ -252,7 +251,7 @@ class _MyQuizState extends State<MyQuiz> {
                       timer.cancel();
                       checkAnswer(options[1]);
                     },
-                      style: ElevatedButton.styleFrom(),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
                       child: Text(options[1].toStringAsFixed(x), style: const TextStyle(fontSize: 56, fontWeight: FontWeight.w300)),
                     )
                 ),
@@ -267,7 +266,7 @@ class _MyQuizState extends State<MyQuiz> {
                       timer.cancel();
                       checkAnswer(options[2]);
                     },
-                      style: ElevatedButton.styleFrom(),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
                       child: Text(options[2].toStringAsFixed(x), style: const TextStyle(fontSize: 56, fontWeight: FontWeight.w300)),
                     )
                 ),
@@ -276,7 +275,7 @@ class _MyQuizState extends State<MyQuiz> {
                       timer.cancel();
                       checkAnswer(options[3]);
                     },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
                       child: Text(options[3].toStringAsFixed(x), style: const TextStyle(fontSize: 56, fontWeight: FontWeight.w300)),
                     )
                 ),
