@@ -23,9 +23,8 @@ class _HomeState extends State<Home> {
               children: [
                 SizedBox(height: 100,child:
                 ElevatedButton(onPressed: (){
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context)=> const MyQuiz(operation: '+'),
-                    ),
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const MyQuiz(operation: '+',))
                   );
                 },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/addition.png', width: 125, height: 125,),)
                 ),
@@ -39,8 +38,9 @@ class _HomeState extends State<Home> {
                 const Text('SUBTRACT', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),),
                 SizedBox(height: 100
                     ,child: ElevatedButton(onPressed: (){
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => const MyQuiz(operation: '-',)));
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => const MyQuiz(operation: '-',))
+                      );
                     },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/subtraction.png', width: 125, height: 125,))
                 )
               ],
@@ -50,10 +50,9 @@ class _HomeState extends State<Home> {
               children: [
                 SizedBox(height: 100,child:
                 ElevatedButton(onPressed: (){
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context)=> const MyQuiz(operation: 'x'),
-                    ),
-                  );
+                 Navigator.of(context).push(
+                   MaterialPageRoute(builder: (context) => const MyQuiz(operation: 'x',))
+                 );
                 },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/multiplication.png', width: 125, height: 125,),)
                 ),
                 const Text('MULTIPLY', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
@@ -67,8 +66,9 @@ class _HomeState extends State<Home> {
                 const SizedBox(width:57),
                 SizedBox(height: 100
                     ,child: ElevatedButton(onPressed: (){
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => const MyQuiz(operation: '/',)));
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => const MyQuiz(operation: '/',))
+                      );
                     },style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent,shadowColor: Colors.transparent), child: Image.asset('assets/division.png', width: 125, height: 125,))
                 )
               ],
