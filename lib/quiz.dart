@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
+import 'score.dart';
 
 class MyQuiz extends StatefulWidget {
   final String operation;
@@ -23,6 +24,7 @@ class _MyQuizState extends State<MyQuiz> {
   Color colors = Colors.black;
   int count = 0;
   String hearts = '❤️❤️❤️';
+  int timeTook = 0;
 
   @override
   void initState(){
@@ -33,6 +35,7 @@ class _MyQuizState extends State<MyQuiz> {
   void startTimer(){
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
+        timeTook++;
         if(countdown > 0){
           countdown--;
         }
@@ -49,12 +52,23 @@ class _MyQuizState extends State<MyQuiz> {
       countdown = 10;
     });
   }
+
   void generateQuestion(){
     resetTimer();
     timer.cancel();
     if(count == 10){
-      timer.cancel();
-      showWonDialog();
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context)=> const ShowScore(),
+        settings: RouteSettings(arguments: ScoreArgument(timeTook,lifeCounter)))
+      ).then((result) {
+        setState(() {
+          hearts = '❤️❤️❤️';
+          lifeCounter = 3;
+          count = 0;
+          timeTook = 0;
+        });
+        generateQuestion();
+      });
       return;
     }
     if(lifeCounter == 0){
@@ -151,38 +165,13 @@ class _MyQuizState extends State<MyQuiz> {
               generateQuestion();
             });
             Navigator.of(context).pop();
-          }, child: const Text('Restart')),
+          }, style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+              child: const Text('Restart')),
           ElevatedButton(
             onPressed: (){
               Navigator.of(context).pop();
               Navigator.of(context).pop();
-            },
-            child: const Text('Go Home'),
-          ),
-        ],
-      );
-    });
-  }
-  void showWonDialog(){
-    showDialog(context: context, builder: (BuildContext context){
-      return AlertDialog(
-        title: const Text('Congrats!'),
-        content: const Text('You answered 10 questions correctly!!.Do you want to play again?'),
-        actions: [
-          ElevatedButton(onPressed: (){
-            setState(() {
-              lifeCounter = 3;
-              hearts = '❤️❤️❤️';
-              count = 0;
-              generateQuestion();
-            });
-            Navigator.of(context).pop();
-          }, child: const Text('Restart')),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-            },
+            }, style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
             child: const Text('Go Home'),
           ),
         ],
